@@ -1,0 +1,94 @@
+1. Poultry Detection for Counter
+Caractéristique
+Détail
+Auteur / Source
+Mohamed F. Abdelshafie, Roboflow Universe
+Lien
+https://universe.roboflow.com/mohamed-f-abdelshafie/poultry-detection-for-counter
+Type de tâche
+Object Detection (bounding boxes)
+Volume
+7 500 images
+Nombre de classes
+18
+Classes pertinentes pour KOCLO AI
+Chicken, Healthy Broiler, Bad cover, Dirty collector, Stressed chicken, lethargic chicken, sick leg, slipped tendons, Unhealthy eye, Bleeding
+Classes à exclure
+Poop chicken (fientes), .500 gm (étiquette de poids, non pertinente), Dead chicken (cas extrême)
+Licence
+CC BY 4.0
+Rôle dans ton dataset final
+Base principale — plus gros volume disponible
+
+2. Chikhen Dataset
+Caractéristique
+Détail
+Auteur / Source
+Avitwins02, Roboflow Universe
+Lien
+https://universe.roboflow.com/avitwins02/chikhen-ilszx
+Type de tâche
+Object Detection (bounding boxes)
+Volume
+236 images
+Nombre de classes
+6 : body anormal, body normal, feet anomaly, feet normal, head anomaly, head normal
+Performance connue
+Modèle déjà entraîné dessus : mAP@50 = 70.7%, précision 92.0%, rappel 67.8%
+Licence
+CC BY 4.0
+Rôle dans ton dataset final
+Complément — structure de classes la plus proche de ton schéma corps/tête, mais volume trop faible pour être une base seule
+
+3. Disease Prediction
+Caractéristique
+Détail
+Auteur / Source
+chicken-disease, Roboflow Universe
+Lien
+https://universe.roboflow.com/chicken-disease/disease-prediction-oryuo
+Type de tâche
+Object Detection (bounding boxes)
+Volume
+1 200 images
+Nombre de classes
+2 : AbNormal, Normal
+Licence
+À vérifier sur la page (généralement CC BY sur Roboflow Universe)
+Rôle dans ton dataset final
+Renfort de volume pour la classe générale anomalie/normale, pas de sous-catégorisation
+
+4. Broiler Chicken Healthy and Sick
+Caractéristique
+Détail
+Auteur / Source
+technicalresearch, Roboflow Universe
+Lien
+https://universe.roboflow.com/technicalresearch/broiler-chicken-healthy-and-sick
+Type de tâche
+Object Detection (bounding boxes)
+Volume
+209 images
+Nombre de classes
+2 : Healthy, Sick
+Licence
+À vérifier sur la page
+Rôle dans ton dataset final
+Renfort de volume secondaire, faible contribution vu la petite taille
+
+Résumé du volume total estimé après fusion
+Catégorie finale
+Sources contributives
+Volume approximatif
+volaille_normale
+Poultry Detection (Chicken, Healthy Broiler) + Disease Prediction (Normal) + Broiler H&S (Healthy) + Chikhen (body/feet/head normal)
+Large volume, probablement suffisant
+anomalie_posture_plumage
+Poultry Detection (Bad cover, Dirty collector, Stressed, lethargic, sick leg, slipped tendons) + Chikhen (body/feet anomaly)
+À vérifier après téléchargement — probablement la classe la mieux fournie
+anomalie_tete
+Poultry Detection (Unhealthy eye, Bleeding) + Chikhen (head anomaly)
+Probablement la classe la plus faible en volume — point à surveiller
+
+
+
