@@ -44,8 +44,6 @@ The datasets included cover whole-body images of chickens, turkeys, and related 
 
 The datasets are downloaded in YOLOv8 format, which includes images, annotation labels, and a data configuration file. This format is compatible with most modern object detection and classification frameworks, including PyTorch, Ultralytics YOLO, and TensorFlow.
 
----
-
 ## Project Structure
 
 ```
@@ -84,8 +82,6 @@ data-vik/
 └── venv/                     # Python virtual environment (auto-generated)
 ```
 
----
-
 ## Prerequisites by Operating System
 
 Before setting up the project, you need a working Python 3.12 or newer installation on your machine. Below are the recommended ways to install Python for each major operating system.
@@ -120,8 +116,6 @@ Alternatively, you can download the official Python installer from [python.org/d
    winget install Python.Python.3.12
    ```
 4. After installation, restart your terminal for the PATH changes to take effect.
-
----
 
 ## Installation
 
@@ -257,8 +251,6 @@ $env:ROBOFLOW_API_KEY='rf_your_key'
 set ROBOFLOW_API_KEY=rf_your_key
 ```
 
----
-
 ## Downloading the Datasets
 
 Once the virtual environment is activated and the API key is configured, you can download the datasets using the provided script.
@@ -296,8 +288,6 @@ python scripts/download_all.py --docs-only
 
 The total download size is approximately 90 MB. Depending on your internet connection speed, the process may take several minutes.
 
----
-
 ## Dataset Reference
 
 The following table summarizes the four datasets included in this project. Each dataset contains poultry body images captured in real-world conditions, with variations in lighting, background, and camera angles.
@@ -317,8 +307,6 @@ The following table summarizes the four datasets included in this project. Each 
 The image classes across all datasets are mapped to a binary classification task:
 - **healthy** (positive class) - Poultry birds in normal physical condition
 - **sick** (negative class) - Birds showing visible signs of disease or abnormality
-
----
 
 ## Using the Data for Training
 
@@ -366,8 +354,6 @@ dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
 **Merging datasets for a unified training set:**
 
 The `merged/` directory is pre-configured with `train/`, `val/`, and `test/` subdirectories (currently empty). You can use it as a destination when combining images from multiple datasets into a single healthy/sick classification structure.
-
----
 
 ## Troubleshooting
 
@@ -436,8 +422,6 @@ Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 Then retry the setup or activation commands.
 
----
-
 ## Licenses
 
 Each dataset included in this project is governed by its own license. Please review the terms before using the data in commercial applications.
@@ -450,8 +434,6 @@ Each dataset included in this project is governed by its own license. Please rev
 | Broiler Chicken Healthy and Sick | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
 
 The CC BY 4.0 license allows sharing and adaptation of the material for any purpose, provided appropriate credit is given. The Roboflow Public License permits non-commercial and research use; for commercial use, please check the specific terms on the Roboflow Universe page for that dataset.
-
----
 
 ## About
 
