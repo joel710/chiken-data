@@ -1,63 +1,67 @@
-# Poultry Disease Detection - Computer Vision Dataset
+# 🐔 Détection de Maladies Aviaires - Dataset Vision par Ordinateur
 
 [![Python 3.12](https://img.shields.io/badge/Python-3.12+-blue?logo=python)](https://python.org)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.13-EE4C2C?logo=pytorch)](https://pytorch.org)
 [![Roboflow](https://img.shields.io/badge/Roboflow-API-7B3FE4)](https://roboflow.com)
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey)](https://creativecommons.org/licenses/by/4.0/)
+[![Licence: CC BY 4.0](https://img.shields.io/badge/Licence-CC_BY_4.0-lightgrey)](https://creativecommons.org/licenses/by/4.0/)
 
 ---
 
-## Table of Contents
+## Table des Matières
 
-- [Project Overview](#project-overview)
-- [Project Structure](#project-structure)
-- [Prerequisites by Operating System](#prerequisites-by-operating-system)
+- [Aperçu du Projet](#apercu-du-projet)
+- [Structure du Projet](#structure-du-projet)
+- [Prérequis par Système d'Exploitation](#prerequis-par-systeme-dexploitation)
   - [Linux (Ubuntu/Debian)](#linux-ubuntudebian)
   - [macOS](#macos)
   - [Windows](#windows)
 - [Installation](#installation)
-  - [Quick Setup (30 seconds)](#quick-setup-30-seconds)
-  - [Manual Installation (step by step)](#manual-installation-step-by-step)
-- [Downloading the Datasets](#downloading-the-datasets)
-- [Dataset Reference](#dataset-reference)
-- [Using the Data for Training](#using-the-data-for-training)
-- [Troubleshooting](#troubleshooting)
-- [Licenses](#licenses)
+  - [Installation Rapide (30 secondes)](#installation-rapide-30-secondes)
+  - [Installation Manuelle (pas à pas)](#installation-manuelle-pas-a-pas)
+- [Téléchargement des Datasets](#telechargement-des-datasets)
+- [Référence des Datasets](#reference-des-datasets)
+- [Utilisation pour l'Entraînement](#utilisation-pour-lentrainement)
+- [Dépannage](#depannage)
+- [Licences](#licences)
 
-## Project Overview
+---
 
-This project collects and structures bird body images (primarily chickens) from open-source datasets hosted on Roboflow Universe. Its purpose is to provide a ready-to-use dataset for training a deep learning model capable of classifying whether a poultry bird is healthy or sick based on a photograph of its body.
+## Aperçu du Projet
 
-The datasets included cover whole-body images of chickens, turkeys, and related poultry, with annotations that distinguish between healthy and abnormal physical states, including plumage quality, posture, leg conditions, and overall appearance.
+Ce projet collecte et structure des **images corporelles de volailles** (principalement des poulets) provenant de datasets open-source hébergés sur Roboflow Universe. L'objectif est de fournir un jeu de données prêt à l'emploi pour entraîner un modèle de deep learning capable de classifier si une volaille est **saine** ou **malade** à partir d'une photographie de son corps.
 
-**What is included:**
-- 4 datasets of poultry body images (approximately 2,300+ images in total)
-- An automated download script that handles API authentication and version detection
-- Organized directory structure ready for model training
-- Individual documentation for each dataset, including class mappings and known performance metrics
+Les datasets inclus couvrent des images en corps entier de poulets, dindes et autres volailles, avec des annotations qui distinguent les états physiques sains des états anormaux. Cela inclut la qualité du plumage, la posture, l'état des pattes, l'apparence de la tête et l'aspect général de l'animal.
 
-**What is excluded (by design):**
-- Fecal and droppings imagery
-- Internal organ lesion images
-- Microbiological or laboratory data
-- Kaggle, Zenodo, and Mendeley datasets (not compatible with the automated workflow)
+**Ce qui est inclus :**
+- 4 datasets d'images corporelles de volailles (environ 2 300+ images au total)
+- Un script de téléchargement automatisé avec authentification API et détection de version
+- Une structure de dossiers organisée et prête pour l'entraînement
+- Une documentation individuelle pour chaque dataset, incluant le mapping des classes et les métriques de performance connues
 
-The datasets are downloaded in YOLOv8 format, which includes images, annotation labels, and a data configuration file. This format is compatible with most modern object detection and classification frameworks, including PyTorch, Ultralytics YOLO, and TensorFlow.
+**Ce qui est exclu (par conception) :**
+- Images de fientes et d'excréments
+- Images de lésions d'organes internes
+- Données microbiologiques ou de laboratoire
+- Datasets Kaggle, Zenodo et Mendeley (non compatibles avec le workflow automatisé)
 
-## Project Structure
+Les datasets sont téléchargés au format **YOLOv8**, qui comprend les images, les annotations et un fichier de configuration. Ce format est compatible avec la plupart des frameworks modernes de vision par ordinateur, notamment PyTorch, Ultralytics YOLO et TensorFlow.
+
+---
+
+## Structure du Projet
 
 ```
 data-vik/
 │
-├── .env                      # API keys configuration file (excluded from version control)
-├── .env.example              # Template for API keys setup
-├── .gitignore                # Git exclusion rules
-├── README.md                 # This documentation file
-├── requirements.txt          # Python dependencies
-├── rapport_complet.md        # Detailed dataset analysis report (in French)
+├── .env                      # Clés API (exclu du versionnement)
+├── .env.example              # Template pour les clés API
+├── .gitignore                # Règles d'exclusion Git
+├── README.md                 # Ce fichier de documentation
+├── requirements.txt          # Dépendances Python
+├── rapport_complet.md        # Rapport d'analyse détaillé des datasets
 │
 ├── scripts/
-│   └── download_all.py       # Main download script with automatic version detection
+│   └── download_all.py       # Script principal de téléchargement
 │
 ├── docs/
 │   ├── 01_ROBOFLOW_POULTRY_DETECTION.md
@@ -65,270 +69,279 @@ data-vik/
 │   ├── 03_ROBOFLOW_DISEASE_PREDICTION.md
 │   └── 04_ROBOFLOW_BROILER.md
 │
-├── datasets/                 # Downloaded data (auto-generated, excluded from git)
+├── datasets/                 # Données téléchargées (généré, exclu du git)
 │   ├── 01_poultry_detection_counter/
 │   ├── 02_chikhen/
 │   ├── 03_disease_prediction/
 │   └── 04_broiler_health/
 │
-├── merged/                   # Merged dataset structure (empty, ready for use)
+├── merged/                   # Structure fusionnée (prête à l'emploi)
 │   ├── train/
 │   ├── val/
 │   └── test/
 │
-├── setup.sh                  # Automated setup script for Linux and macOS
-├── setup.ps1                 # Automated setup script for Windows PowerShell
+├── setup.sh                  # Script d'installation automatisé (Linux/macOS)
+├── setup.ps1                 # Script d'installation automatisé (Windows)
 │
-└── venv/                     # Python virtual environment (auto-generated)
+└── venv/                     # Environnement virtuel Python (généré)
 ```
 
-## Prerequisites by Operating System
+---
 
-Before setting up the project, you need a working Python 3.12 or newer installation on your machine. Below are the recommended ways to install Python for each major operating system.
+## Prérequis par Système d'Exploitation
+
+Avant de configurer le projet, vous devez disposer d'une installation fonctionnelle de **Python 3.12 ou plus récent** sur votre machine. Les sections ci-dessous détaillent les méthodes recommandées pour chaque système d'exploitation.
 
 ### Linux (Ubuntu/Debian)
 
-On Debian-based Linux distributions, Python can be installed using the package manager:
+Sur les distributions Linux basées sur Debian, Python s'installe via le gestionnaire de paquets :
 
 ```bash
 sudo apt update
 sudo apt install -y python3 python3-pip python3-venv
 ```
 
-For other distributions (Fedora, Arch, etc.), use the corresponding package manager. Python 3.12 or later is required.
+Pour les autres distributions (Fedora, Arch, etc.), utilisez le gestionnaire de paquets correspondant.
 
 ### macOS
 
-The recommended approach on macOS is to use Homebrew, which provides an up-to-date Python version without interfering with the system Python:
+La méthode recommandée sur macOS est d'utiliser Homebrew, qui fournit une version récente de Python sans interférer avec le Python système :
 
 ```bash
 brew install python@3.12
 ```
 
-Alternatively, you can download the official Python installer from [python.org/downloads](https://www.python.org/downloads/).
+Vous pouvez également télécharger l'installateur officiel depuis [python.org/downloads](https://www.python.org/downloads/).
 
 ### Windows
 
-1. Download Python 3.12 or later from the official website: [python.org/downloads](https://www.python.org/downloads/)
-2. During installation, make sure to check the option **"Add Python to PATH"**.
-3. Alternatively, you can install Python via PowerShell using the Windows Package Manager:
+1. Téléchargez Python 3.12 ou plus récent depuis le site officiel : [python.org/downloads](https://www.python.org/downloads/)
+2. Pendant l'installation, veillez à **cocher l'option "Add Python to PATH"**.
+3. Vous pouvez aussi installer Python via PowerShell avec le Windows Package Manager :
    ```powershell
    winget install Python.Python.3.12
    ```
-4. After installation, restart your terminal for the PATH changes to take effect.
+4. Redémarrez votre terminal après l'installation pour que les changements de PATH prennent effet.
+
+---
 
 ## Installation
 
-### Quick Setup (30 seconds)
+### Installation Rapide (30 secondes)
 
-Automated scripts are provided to handle the entire installation process, including virtual environment creation and dependency installation.
+Des scripts d'installation automatisés sont fournis pour gérer l'ensemble du processus, y compris la création de l'environnement virtuel et l'installation des dépendances.
 
-**Linux and macOS:**
+**Linux et macOS :**
 ```bash
 bash setup.sh
 ```
 
-**Windows (PowerShell):**
+**Windows (PowerShell) :**
 ```powershell
 .\setup.ps1
 ```
 
-If PowerShell blocks script execution on Windows, you may need to adjust the execution policy first:
+Si PowerShell bloque l'exécution du script, vous devrez peut-être ajuster la politique d'exécution au préalable :
 ```powershell
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
-Then run the setup script again.
 
-The setup script will perform the following actions automatically:
-- Check that Python is installed and available
-- Create a Python virtual environment in the `venv/` directory
-- Install all required dependencies from `requirements.txt`
-- Copy `.env.example` to `.env` if it does not already exist
+Le script d'installation effectue automatiquement les actions suivantes :
+- Vérifie que Python est installé et accessible
+- Crée un environnement virtuel Python dans le dossier `venv/`
+- Installe toutes les dépendances requises depuis `requirements.txt`
+- Copie `.env.example` vers `.env` si ce dernier n'existe pas déjà
 
-After the script completes, you will need to:
-1. Edit the `.env` file to add your Roboflow API key (see step 5 below)
-2. Run the dataset download command
+Une fois le script terminé, vous devrez :
+1. Éditer le fichier `.env` pour ajouter votre clé API Roboflow
+2. Lancer la commande de téléchargement des datasets
 
-### Manual Installation (step by step)
+### Installation Manuelle (pas à pas)
 
-If you prefer to set up the project manually, follow the steps below.
+Si vous préférez configurer le projet manuellement, suivez les étapes ci-dessous.
 
-#### 1. Clone or download the project
+#### 1. Cloner ou télécharger le projet
 
 ```bash
-git clone <repository-url> data-vik
+git clone <url-du-repo> data-vik
 cd data-vik
 ```
 
-If you downloaded the project as a ZIP archive, extract it and navigate to the project directory in your terminal.
+Si vous avez téléchargé le projet en ZIP, extrayez-le et ouvrez un terminal dans le dossier.
 
-#### 2. Create a virtual environment
+#### 2. Créer un environnement virtuel
 
-A virtual environment isolates the project dependencies from your system Python, preventing version conflicts:
+L'environnement virtuel isole les dépendances du projet de votre Python système, évitant ainsi les conflits de versions :
 
 ```bash
-# Linux and macOS
+# Linux et macOS
 python3 -m venv venv
 
 # Windows (PowerShell)
 python -m venv venv
 ```
 
-#### 3. Activate the virtual environment
+#### 3. Activer l'environnement virtuel
 
-Activating the environment makes the installed packages available to your Python sessions. You should see the `(venv)` prefix appear in your terminal prompt.
+L'activation de l'environnement rend les paquets installés disponibles pour vos sessions Python. Vous devriez voir le préfixe `(venv)` apparaître dans votre terminal.
 
 ```bash
-# Linux and macOS (bash/zsh)
+# Linux et macOS (bash/zsh)
 source venv/bin/activate
 
 # Windows (PowerShell)
 .\venv\Scripts\Activate.ps1
 
-# Windows (Command Prompt)
+# Windows (Invite de commandes)
 venv\Scripts\activate.bat
 ```
 
-#### 4. Install dependencies
+#### 4. Installer les dépendances
 
-With the virtual environment activated, install the required packages:
+Une fois l'environnement virtuel activé, installez les paquets requis :
 
 ```bash
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-The `requirements.txt` file includes the following packages and their purposes:
+Le fichier `requirements.txt` contient les paquets suivants :
 
-| Package | Purpose |
-|---------|---------|
-| `torch` and `torchvision` | Deep learning framework (PyTorch) for model training and evaluation |
-| `opencv-python-headless` | Image processing and computer vision operations |
-| `roboflow` | API client for downloading datasets from Roboflow Universe |
-| `numpy` and `pandas` | Numerical computation and data manipulation |
-| `matplotlib` and `seaborn` | Data visualization and plotting |
-| `scikit-learn` | Machine learning metrics and evaluation tools |
-| `albumentations` | Image augmentation for training data |
-| `jupyter` | Interactive notebooks for data exploration |
-| `python-dotenv` | Environment variable loading from `.env` files |
+| Paquet | Utilité |
+|--------|---------|
+| `torch` et `torchvision` | Framework deep learning (PyTorch) pour l'entraînement et l'évaluation |
+| `opencv-python-headless` | Traitement d'images et opérations de vision par ordinateur |
+| `roboflow` | Client API pour télécharger les datasets depuis Roboflow Universe |
+| `numpy` et `pandas` | Calcul numérique et manipulation de données |
+| `matplotlib` et `seaborn` | Visualisation de données et tracés |
+| `scikit-learn` | Métriques d'apprentissage automatique et outils d'évaluation |
+| `albumentations` | Augmentation d'images pour les données d'entraînement |
+| `jupyter` | Notebooks interactifs pour l'exploration de données |
+| `python-dotenv` | Chargement des variables d'environnement depuis le fichier `.env` |
 
-#### 5. Configure the Roboflow API key
+#### 5. Configurer la clé API Roboflow
 
-The datasets are hosted on Roboflow Universe and require an API key for download. Obtaining a key is free.
+Les datasets sont hébergés sur Roboflow Universe et nécessitent une clé API pour le téléchargement. L'obtention d'une clé est gratuite.
 
-**Step 1:** Create a free Roboflow account at [app.roboflow.com/settings/api](https://app.roboflow.com/settings/api).
+**Étape 1 :** Créez un compte Roboflow gratuit sur [app.roboflow.com/settings/api](https://app.roboflow.com/settings/api).
 
-**Step 2:** On the settings page, locate your API key (it starts with `rf_`). Click the copy button.
+**Étape 2 :** Sur la page des paramètres, localisez votre clé API (elle commence par `rf_`). Cliquez sur le bouton Copier.
 
-**Step 3:** Create and edit the `.env` file in the project root:
+**Étape 3 :** Créez et éditez le fichier `.env` à la racine du projet :
 
 ```bash
 cp .env.example .env
 ```
 
-Open the `.env` file with a text editor:
+Ouvrez le fichier `.env` avec un éditeur de texte :
 
 ```bash
-nano .env   # or vim, code, notepad, etc.
+nano .env   # ou vim, code, notepad, etc.
 ```
 
-Replace the placeholder value with your actual API key:
+Remplacez la valeur fictive par votre clé API réelle :
 
 ```env
-ROBOFLOW_API_KEY="rf_your_copied_key_here"
+ROBOFLOW_API_KEY="rf_votre_cle_copice"
 ```
 
-**Alternative method:** If you prefer not to use a `.env` file, you can export the key as an environment variable directly:
+**Méthode alternative :** Si vous préférez ne pas utiliser de fichier `.env`, vous pouvez exporter la variable directement :
 
 ```bash
-# Linux and macOS
-export ROBOFLOW_API_KEY='rf_your_key'
+# Linux et macOS
+export ROBOFLOW_API_KEY='rf_votre_cle'
 
 # Windows (PowerShell)
-$env:ROBOFLOW_API_KEY='rf_your_key'
+$env:ROBOFLOW_API_KEY='rf_votre_cle'
 
-# Windows (Command Prompt)
-set ROBOFLOW_API_KEY=rf_your_key
+# Windows (Invite de commandes)
+set ROBOFLOW_API_KEY=rf_votre_cle
 ```
 
-## Downloading the Datasets
+---
 
-Once the virtual environment is activated and the API key is configured, you can download the datasets using the provided script.
+## Téléchargement des Datasets
 
-**List available datasets without downloading:**
+Une fois l'environnement virtuel activé et la clé API configurée, vous pouvez télécharger les datasets à l'aide du script fourni.
+
+**Lister les datasets disponibles sans télécharger :**
 
 ```bash
 python scripts/download_all.py --list
 ```
 
-This command displays the four available datasets with their image counts and class numbers.
+Cette commande affiche les quatre datasets disponibles avec leur nombre d'images et de classes.
 
-**Download all datasets from Roboflow:**
+**Télécharger tous les datasets Roboflow :**
 
 ```bash
 python scripts/download_all.py --roboflow-only
 ```
 
-The download script performs the following operations for each dataset:
-1. Connects to the Roboflow API using your configured API key
-2. Detects the latest version of each dataset automatically
-3. Downloads the data in YOLOv8 format
-4. Verifies that the files were written correctly
-5. Reports the count of downloaded images and annotation files
+Pour chaque dataset, le script de téléchargement effectue les opérations suivantes :
+1. Connexion à l'API Roboflow avec la clé configurée
+2. Détection automatique de la dernière version du dataset
+3. Téléchargement des données au format YOLOv8
+4. Vérification de l'intégrité des fichiers téléchargés
+5. Rapport du nombre d'images et de fichiers d'annotation
 
-**Other available commands:**
+**Autres commandes disponibles :**
 
 ```bash
-# Download datasets and generate documentation
+# Tout faire (téléchargement + documentation)
 python scripts/download_all.py --all
 
-# Generate only the documentation files
+# Générer uniquement les fichiers de documentation
 python scripts/download_all.py --docs-only
 ```
 
-The total download size is approximately 90 MB. Depending on your internet connection speed, the process may take several minutes.
+Le volume total de téléchargement est d'environ **90 Mo**. Selon la vitesse de votre connexion internet, le processus peut prendre plusieurs minutes.
 
-## Dataset Reference
+---
 
-The following table summarizes the four datasets included in this project. Each dataset contains poultry body images captured in real-world conditions, with variations in lighting, background, and camera angles.
+## Référence des Datasets
 
-| Dataset | Images | Classes | Content | Size |
-|---------|--------|---------|---------|------|
-| Poultry Detection for Counter | 1 268 | 18 | Full body, head, legs, plumage details | 37 MB |
-| Chikhen | 509 | 6 | Body, head, and feet (normal vs abnormal) | 39 MB |
-| Disease Prediction | 30 | 2 | Whole body (Normal vs Abnormal) | 1.4 MB |
-| Broiler Chicken Healthy and Sick | 505 | 2 | Whole body (Healthy vs Sick) | 10 MB |
-| **Total** | **2 312** | | | **88 MB** |
+Le tableau ci-dessous résume les quatre datasets inclus dans ce projet. Chaque dataset contient des images de volailles capturées dans des conditions réelles, avec des variations d'éclairage, d'arrière-plan et d'angle de prise de vue.
 
-**Note:** The list view (`--list`) shows approximately 9,145 images based on the dataset metadata. The actual API download returns a usable subset of approximately 2,312 images, which is the version that the authors have prepared for direct use in model training.
+| Dataset | Images | Classes | Contenu | Taille |
+|---------|--------|---------|---------|--------|
+| Poultry Detection for Counter | 1 268 | 18 | Corps entier, tête, pattes, plumage | 37 Mo |
+| Chikhen | 509 | 6 | Corps, tête et pattes (normal vs anormal) | 39 Mo |
+| Disease Prediction | 30 | 2 | Corps entier (Normal vs Anormal) | 1.4 Mo |
+| Broiler Chicken Healthy and Sick | 505 | 2 | Corps entier (Sain vs Malade) | 10 Mo |
+| **Total** | **2 312** | | | **88 Mo** |
 
-**Class mapping convention:**
+**Note :** La vue liste (`--list`) affiche environ 9 145 images d'après les métadonnées des datasets. Le téléchargement via l'API retourne un sous-ensemble exploitable d'environ 2 312 images, qui correspond à la version préparée par les auteurs pour une utilisation directe en entraînement.
 
-The image classes across all datasets are mapped to a binary classification task:
-- **healthy** (positive class) - Poultry birds in normal physical condition
-- **sick** (negative class) - Birds showing visible signs of disease or abnormality
+**Convention de mapping des classes :**
 
-## Using the Data for Training
+Les classes d'images de l'ensemble des datasets sont mappées vers une tâche de classification binaire :
+- **healthy** (classe positive) - Volailles en condition physique normale
+- **sick** (classe négative) - Volailles présentant des signes visibles de maladie ou d'anomalie
 
-The datasets are downloaded in the YOLOv8 format, which is compatible with most computer vision frameworks. Each dataset directory contains the following structure:
+---
+
+## Utilisation pour l'Entraînement
+
+Les datasets sont téléchargés au format YOLOv8, compatible avec la plupart des frameworks de vision par ordinateur. Chaque dossier de dataset contient la structure suivante :
 
 ```
 datasets/01_poultry_detection_counter/
 ├── train/
-│   ├── images/       # Training images
-│   └── labels/       # Annotation labels in YOLO format
+│   ├── images/       # Images d'entraînement
+│   └── labels/       # Annotations au format YOLO
 ├── valid/
-│   ├── images/       # Validation images
-│   └── labels/       # Corresponding annotations
+│   ├── images/       # Images de validation
+│   └── labels/       # Annotations correspondantes
 ├── test/
-│   ├── images/       # Test images
-│   └── labels/       # Corresponding annotations
-└── data.yaml         # Dataset configuration file (class names, paths)
+│   ├── images/       # Images de test
+│   └── labels/       # Annotations correspondantes
+└── data.yaml         # Fichier de configuration (noms des classes, chemins)
 ```
 
-**Example: Loading the data for PyTorch training**
+**Exemple : Chargement des données pour un entraînement PyTorch**
 
-The following code snippet demonstrates how to load the images for training a classification model using PyTorch:
+L'extrait de code suivant montre comment charger les images pour entraîner un modèle de classification avec PyTorch :
 
 ```python
 import torch
@@ -351,92 +364,98 @@ dataset = ImageFolder(
 dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
 ```
 
-**Merging datasets for a unified training set:**
+**Fusion des datasets pour un ensemble d'entraînement unifié :**
 
-The `merged/` directory is pre-configured with `train/`, `val/`, and `test/` subdirectories (currently empty). You can use it as a destination when combining images from multiple datasets into a single healthy/sick classification structure.
+Le dossier `merged/` est pré-configuré avec les sous-dossiers `train/`, `val/` et `test/` (actuellement vides). Vous pouvez l'utiliser comme destination pour combiner les images de plusieurs datasets en une structure unique de classification sain/malade.
 
-## Troubleshooting
+---
 
-### ROBOFLOW_API_KEY not defined
+## Dépannage
 
-The script cannot find your API key. Verify that the `.env` file exists in the project root and contains the correct key:
+### ROBOFLOW_API_KEY non définie
+
+Le script ne trouve pas votre clé API. Vérifiez que le fichier `.env` existe à la racine du projet et contient la clé correcte :
 
 ```bash
 cat .env
 ```
 
-Alternatively, check whether the environment variable is set correctly:
+Vous pouvez également vérifier si la variable d'environnement est correctement définie :
 
 ```bash
-echo $ROBOFLOW_API_KEY     # Linux and macOS
-echo %ROBOFLOW_API_KEY%    # Windows Command Prompt
+echo $ROBOFLOW_API_KEY     # Linux et macOS
+echo %ROBOFLOW_API_KEY%    # Windows Invite de commandes
 ```
 
-If the key is missing, either edit the `.env` file or export the variable manually as described in the installation section.
+Si la clé est manquante, éditez le fichier `.env` ou exportez la variable manuellement comme décrit dans la section d'installation.
 
-### pip installation fails
+### Échec de l'installation pip
 
-Outdated pip versions can cause installation failures. Update pip before retrying:
+Des versions obsolètes de pip peuvent causer des échecs d'installation. Mettez à jour pip avant de réessayer :
 
 ```bash
 pip install --upgrade pip
 ```
 
-On Linux systems, if you are installing outside a virtual environment, you may need:
+Sur les systèmes Linux, si vous installez en dehors d'un environnement virtuel, vous pourriez avoir besoin de :
 
 ```bash
 pip install --break-system-packages -r requirements.txt
 ```
 
-### Version number not found
+### Numéro de version introuvable
 
-The script automatically detects the latest version of each dataset. If you receive a version-related error, it is likely a transient API issue. Simply re-run the download command:
+Le script détecte automatiquement la dernière version de chaque dataset. Si vous recevez une erreur liée à la version, il s'agit probablement d'un problème transitoire avec l'API. Relancez simplement la commande de téléchargement :
 
 ```bash
 python scripts/download_all.py --roboflow-only
 ```
 
-### roboflow package not installed
+### Paquet roboflow non installé
 
-Install the package manually:
+Installez le paquet manuellement :
 
 ```bash
 pip install roboflow
 ```
 
-### Permission denied (Linux and macOS)
+### Permission refusée (Linux et macOS)
 
-Ensure the script has execution permissions:
+Assurez-vous que le script a les permissions d'exécution :
 
 ```bash
 chmod +x scripts/download_all.py
 ```
 
-### Windows PowerShell execution policy
+### Windows - PowerShell bloque l'exécution
 
-If PowerShell blocks the setup script with a security error, adjust the execution policy:
+Si PowerShell bloque le script d'installation avec une erreur de sécurité, ajustez la politique d'exécution :
 
 ```powershell
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
-Then retry the setup or activation commands.
+Réessayez ensuite les commandes d'installation ou d'activation.
 
-## Licenses
+---
 
-Each dataset included in this project is governed by its own license. Please review the terms before using the data in commercial applications.
+## Licences
 
-| Dataset | License |
+Chaque dataset inclus dans ce projet est régi par sa propre licence. Veuillez vérifier les conditions avant d'utiliser les données dans des applications commerciales.
+
+| Dataset | Licence |
 |---------|---------|
 | Poultry Detection for Counter | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
 | Chikhen | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
 | Disease Prediction | Roboflow Public License |
 | Broiler Chicken Healthy and Sick | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
 
-The CC BY 4.0 license allows sharing and adaptation of the material for any purpose, provided appropriate credit is given. The Roboflow Public License permits non-commercial and research use; for commercial use, please check the specific terms on the Roboflow Universe page for that dataset.
+La licence **CC BY 4.0** autorise le partage et l'adaptation du matériel pour tout usage, à condition de créditer correctement l'auteur. La **Roboflow Public License** autorise une utilisation non commerciale et de recherche ; pour un usage commercial, veuillez consulter les conditions spécifiques sur la page Roboflow Universe du dataset concerné.
 
-## About
+---
 
-This project was created for the purpose of collecting and structuring training data for poultry disease detection using computer vision. It provides a reproducible pipeline for dataset acquisition that can be extended with additional sources in the future.
+## À Propos
 
-For questions or contributions, please open an issue or pull request on the repository.
+Ce projet a été créé dans le but de collecter et structurer des données d'entraînement pour la détection de maladies aviaires par vision par ordinateur. Il fournit un pipeline reproductible d'acquisition de datasets, qui pourra être étendu avec des sources supplémentaires à l'avenir.
+
+Pour toute question ou contribution, veuillez ouvrir une issue ou une pull request sur le dépôt.
